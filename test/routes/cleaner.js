@@ -81,11 +81,11 @@ router.get('/search/:key', async (req, res) => {
         //검색어변수
         var key = req.params.key;
         //검색어와 일치하는 클리너 가져오기
-        let query = "select * from cleaner where name like '%"+key+"%'";
-        var search =  await connection.query(query);
+        let query = "select * from cleaner where name like %?%";
+        var search =  await connection.query(query, key);
         res.status(200).send({
             "message" : "Succeed in searching a cleaner",
-            "result" : { "search": search }
+            "result" : search
         });
     }//try문끝
     catch(err){
@@ -151,19 +151,19 @@ router.post('/:date', async (req, res)=>{
         orderBy = "review_cnt";
       }
       let query2 = ''+
-      'SELECT ting.*,'+
-      '(6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
-      '-radians(?))+sin(radians(?))*sin(radians(lat))))'+
-      'AS distance'+
-      'FROM MAP_INFO'+
-      'natural join cleaner'+
-      'WHERE not map_info.cleanerId is NULL'+
-      'HAVING distance <= 0.1'+
-      'ORDER BY '+ orderBy + ' desc '
-      'LIMIT 0,30';
+    ' SELECT cleaner.*,'+
+    ' (6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
+    ' -radians(?))+sin(radians(?))*sin(radians(lat))))'+
+    ' AS distance'+
+    ' FROM map_info'+
+    ' join cleaner join ting'+
+    ' WHERE map_info.cleanerId=cleaner.cleanerId'+
+    ' and map_info.cleanerId=ting.cleanerId and ting.date!=?'+
+    ' HAVING distance <= 0.1'+
+    ' order by ? desc';
 
-      var ret = await connection.query(query2, [userLat, userLng, userLat]);
-      res.status(200).send({message:'ok', result:ret});
+    var ret = await connection.query(query2, [userLat, userLng, userLat, date, order]);
+    res.status(200).send({message:'ok', result:ret});
     }
   }
   catch(err){

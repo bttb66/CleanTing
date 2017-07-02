@@ -266,7 +266,7 @@ router.get('/register/:userId', async (req, res)=>{
 
      //완료한 팅 관련 정보 삭제
      await connection.query('delete from ting where tingId=?', tingId);
-     res.status(200).send({message:'팅 완료 성공', ret:ret});
+     res.status(200).send({message:'팅 완료 성공'});
    }
    catch (err){
      res.status(500).send({message:'server err: '+err});
@@ -277,7 +277,7 @@ router.get('/register/:userId', async (req, res)=>{
    }
  });
 
- 
+
 //팅취소하기
 router.delete('/:tingId', async (req, res)=>{
   try{

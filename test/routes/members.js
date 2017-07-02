@@ -28,7 +28,7 @@ router.post('/login', async function(req, res){
             userId: user_info[0].id
           };
           let token = jwt.sign(payload, req.app.get('jwt-secret'), option);
-          let query2 = 'select user.userId, user.name, user.phone, user.address, map_info.lat, map_info.lng from user natural join map_info where userId=?'
+          let query2 = 'select user.userId, user.name, user.phone, user.address, user.push, map_info.lat, map_info.lng from user natural join map_info where userId=?'
           let result = await connection.query(query2, userId);
           res.status(200).send({
             token: token,
@@ -165,14 +165,15 @@ router.post('/signUp', async(req, res) => {
       //    else pwd = hashed;
       //  });
 
-       //회원가입정보입력
+       //회원가입정보입력 (푸시알림은 허용이 default)
        let query1='insert into user set ?';
        let record = {
             userId : userId,
             name : req.body.name,
             phone : req.body.phone,
             address : req.body.address,
-            pwd : req.body.pwd
+            pwd : req.body.pwd,
+            push : 1
          };
         await connection.query(query1, record);
 
@@ -240,4 +241,3 @@ router.post('/duplicate', async (req, res) => {
 });
 
 module.exports = router;
-

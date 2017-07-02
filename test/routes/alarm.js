@@ -24,4 +24,22 @@ router.get('/:userId', async (req, res)=>{
   }
 });
 
+//알람 받기 여부 수정(1, -1)
+router.put('/:push', async(req, res)=>{
+  try{
+    var connection = await pool.getConnection();
+    let query = 'update user set push=-1*push';
+    await connection.query(query);
+    res.status(200).send({message:'push update ok'});
+  }
+  catch (err){
+    console.log(err);
+    res.status(500).send{message:'server err: '+err}
+  }
+  finally{
+    pool.releaseConnection(connection);
+  }
+});
+
+
 module.exports = router;

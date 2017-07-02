@@ -144,7 +144,7 @@ router.get('/id/:phone', async (req, res) => {
         var userId =  await connection.query(query, req.params.phone);
         res.status(200).send({
             "message" : "아이디가 존재합니다",
-            "result" : { "userId": userId }
+            "result" : { "userId": userId[0] }
         });
     }
     catch(err){

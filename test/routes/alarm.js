@@ -11,8 +11,7 @@ router.get('/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     let query = 'select alarm.* from user_ting natural join alarm where userId=?';
-    var ret = await connection.query(query, req.params.userId);
-    var result = {};
+    var result = await connection.query(query, req.params.userId);
 
     res.status(200).send({message:'alarm query ok', ret:result});
   }
@@ -34,7 +33,7 @@ router.put('/:push', async(req, res)=>{
   }
   catch (err){
     console.log(err);
-    res.status(500).send{message:'server err: '+err}
+    res.status(500).send({message:'server err: '+err});
   }
   finally{
     pool.releaseConnection(connection);

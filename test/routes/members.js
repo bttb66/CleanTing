@@ -120,6 +120,7 @@ router.post('/login', async function(req, res){
           let query2 = 'select user.userId, user.name, user.phone, user.address, user.push, map_info.lat, map_info.lng from user natural join map_info where userId=?'
           let result = await connection.query(query2, userId);
           res.status(200).send({
+            message:'ok',
             token: token,
             userInfo: result[0]
           });

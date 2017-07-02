@@ -8,145 +8,6 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
-//로그인 gps,
-router.post('/login', async function(req, res){
-    try {
-        var connection = await pool.getConnection();
-        const userId = req.body.userId;
-        const pwd = req.body.pwd;
-        let query = 'select userId, pwd from user where userId=?';
-        let user_info = await connection.query(query, userId) || null;
-
-        if(pwd!=user_info[0].pwd) res.status(401).send({message: 'wrong email or password'});
-        else {
-          //jwt 발급하고 성공메세지 보내주기
-          let option = {
-            algorithm : 'HS256',
-            expiresIn: 60 * 60 * 24 * 30 //토큰 발행 후 유효기간 지정(30일)
-          }
-          let payload = {
-            userId: user_info[0].id
-          };
-          let token = jwt.sign(payload, req.app.get('jwt-secret'), option);
-          let query2 = 'select user.userId, user.name, user.phone, user.address, user.push, map_info.lat, map_info.lng from user natural join map_info where userId=?'
-          let result = await connection.query(query2, userId);
-          res.status(200).send({
-            token: token,
-            userInfo: result[0]
-          });
-        }
-    }
-    catch(err) {
-        console.log(err);
-        res.status(500).send({message: 'server err: '+err });
-    }
-    finally {
-        pool.releaseConnection(connection);
-    }
-});
-
-//아이디찾기
-router.get('/id/:phone', async (req, res) => {
-    try {
-        var connection = await pool.getConnection();
-
-        // let query = "select userId from user where phone like '%"+phone+"%'";
-        let query = "select userId from user where phone=?";
-        var userId =  await connection.query(query, req.params.phone);
-        res.status(200).send({
-            "message" : "아이디가 존재합니다",
-            "result" : { "userId": userId }
-        });
-    }
-    catch(err){
-        console.log(err);
-        res.status(500).send({
-          "message": "syntax error : " [err]
-        });
-        await connection.rollback();
-    }
-    finally{
-        pool.releaseConnection(connection);
-    }
-
-});
-
-
-//비밀번호바꾸기
-router.put('/pwd/:phone', async (req, res)=>{
-  try{
-    if(!req.body.pwd)
-      res.status(403).send({ message: 'please input pwd'});
-    else{
-        var connection = await pool.getConnection();
-        // var phone = req.params.phone; //핸드폰번호
-        var pwd = req.body.pwd; //비밀번호
-        let query = 'update user set pwd =? where phone=?';
-        await connection.query(query, [pwd, req.params.phone]);
-        res.status(200).send({
-            "message" : "비밀번호 변경 성공"
-        });
-      }//else문 끝
-    }//try문 끝
-  catch (err){
-    res.status(500).send({message:'server err :'+err});
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
-
-//로그아웃
-
-//탈퇴하기
-//신청한 팀 있는지 확인 후 있을 경우 cnt-1, cascade로 삭제
-router.delete('/withdraw/:userId', async (req, res)=>{
-  try{
-    var connection = await pool.getConnection();
-    const userId = req.params.user;
-    //신청한 팅이 있을 경우 해당 팅 cnt -1
-    let query = 'update user_ting natural join ting set cnt = cnt-1 where userId=?';
-    await connection.query(query, userId);
-
-    let query2 = 'delete from user where userId=?';
-    await connection.query(query, userId);
-    res.status(200).send({message:'user withdraw success'});
-  }
-  catch(err){
-    console.log(err);
-    res.status(500).send({message:'server err: '+err});
-    await connection.rollback();
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
-
-//신청한 팀 있는지 확인 후 있을 경우 cnt-1, cascade로 삭제
-// router.delete('/withdraw/:userId', async (req, res)=>{
-//   try{
-//     var connection = await pool.getConnection();
-//     const userId = req.params.userId;
-//     //신청한 팅이 있을 경우 해당 팅 cnt -1
-//     let query = 'update user_ting natural join ting set cnt = cnt-1 where userId=?';
-//     await connection.query(query, userId);
-//
-//     let query2 = 'delete from user where userId=?';
-//     await connection.query(query, userId);
-//     res.status(200).send({message:'user withdraw success'});
-//   }
-//   catch(err){
-//     console.log(err);
-//     res.status(500).send({message:'server err: '+err});
-//     await connection.rollback();
-//   }
-//   finally{
-//     pool.releaseConnection(connection);
-//   }
-// });
-
-//푸시알림 설정
-
 
 //회원가입(+비밀번호 암호화처리)
 router.post('/signUp', async(req, res) => {
@@ -235,5 +96,117 @@ router.get('/duplicate/:userId', async (req, res) => {
         pool.releaseConnection(connection);
     }
 });
+
+//로그인 gps,
+router.post('/login', async function(req, res){
+    try {
+        var connection = await pool.getConnection();
+        const userId = req.body.userId;
+        const pwd = req.body.pwd;
+        let query = 'select userId, pwd from user where userId=?';
+        let user_info = await connection.query(query, userId) || null;
+
+        if(pwd!=user_info[0].pwd) res.status(401).send({message: 'wrong email or password'});
+        else {
+          //jwt 발급하고 성공메세지 보내주기
+          let option = {
+            algorithm : 'HS256',
+            expiresIn: 60 * 60 * 24 * 30 //토큰 발행 후 유효기간 지정(30일)
+          }
+          let payload = {
+            userId: user_info[0].userId
+          };
+          let token = jwt.sign(payload, req.app.get('jwt-secret'), option);
+          let query2 = 'select user.userId, user.name, user.phone, user.address, user.push, map_info.lat, map_info.lng from user natural join map_info where userId=?'
+          let result = await connection.query(query2, userId);
+          res.status(200).send({
+            token: token,
+            userInfo: result[0]
+          });
+        }
+    }
+    catch(err) {
+        console.log(err);
+        res.status(500).send({message: 'server err: '+err });
+    }
+    finally {
+        pool.releaseConnection(connection);
+    }
+});
+
+//아이디찾기
+router.get('/id/:phone', async (req, res) => {
+    try {
+        var connection = await pool.getConnection();
+        // let query = "select userId from user where phone like '%"+phone+"%'";
+        let query = "select userId from user where phone=?";
+        var userId =  await connection.query(query, req.params.phone);
+        res.status(200).send({
+            "message" : "아이디가 존재합니다",
+            "result" : { "userId": userId }
+        });
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send({
+          "message": "syntax error : " [err]
+        });
+        await connection.rollback();
+    }
+    finally{
+        pool.releaseConnection(connection);
+    }
+
+});
+
+//비밀번호수정
+router.put('/pwd/:phone', async (req, res)=>{
+  try{
+    if(!req.body.pwd)
+      res.status(403).send({ message: 'please input pwd'});
+    else{
+        var connection = await pool.getConnection();
+        // var phone = req.params.phone; //핸드폰번호
+        var pwd = req.body.pwd; //비밀번호
+        let query = 'update user set pwd =? where phone=?';
+        await connection.query(query, [pwd, req.params.phone]);
+        res.status(200).send({
+            "message" : "비밀번호 변경 성공"
+        });
+      }//else문 끝
+    }//try문 끝
+  catch (err){
+    res.status(500).send({message:'server err :'+err});
+  }
+  finally{
+    pool.releaseConnection(connection);
+  }
+});
+
+//탈퇴하기
+router.delete('/withdraw/:userId', async (req, res)=>{
+  try{
+    //신청한 팀 있는지 확인 후 있을 경우 cnt-1, cascade로 삭제
+    var connection = await pool.getConnection();
+    const userId = req.params.userId;
+    //신청한 팅이 있을 경우 해당 팅 cnt -1
+    let query = 'update user_ting natural join ting set cnt = cnt-1 where userId=?';
+    await connection.query(query, userId);
+
+    let query2 = 'delete from user where userId=?';
+    await connection.query(query2, userId);
+    res.status(200).send({message:'user withdraw success'});
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).send({message:'server err: '+err});
+    await connection.rollback();
+  }
+  finally{
+    pool.releaseConnection(connection);
+  }
+});
+
+//로그아웃
 
 module.exports = router;

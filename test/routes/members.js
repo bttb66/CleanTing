@@ -201,17 +201,14 @@ router.post('/signUp', async(req, res) => {
 });
 
 //아이디 중복 확인
-router.post('/duplicate', async (req, res) => {
+router.get('/duplicate/:userId', async (req, res) => {
     try {
-      if(!req.body.userId)
-        res.status(403).send({ message: 'please input all of userId'});
-      else{
         var connection = await pool.getConnection();
         //아이디중복확인
         let query1='select userId from user';
         let post = await connection.query(query1);
         let flag = 1; //아이디가 중복되면 1, 아니면 0인 변수
-        const userId = req.body.userId;
+        const userId = req.params.userId;
         //아이디가 중복되면 flag변수 0으로 세팅
         for(var i in post){
           if(post[i].userId == userId)
@@ -226,7 +223,6 @@ router.post('/duplicate', async (req, res) => {
               "message" : "사용가능한 아이디 입니다."
           });
         }//else문 끝
-      }//큰 else문 끝
     }//try문 끝
     catch(err){
         console.log(err);

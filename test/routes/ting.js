@@ -141,8 +141,8 @@ router.post('/area/:userId', async (req, res)=>{
      '-radians(?))+sin(radians(?))*sin(radians(lat))))'+
      'AS distance'+
     ' FROM map_info'+
-    ' natural join ting'+
-    ' WHERE not map_info.tingId is NULL'+
+    ' join ting'+
+    ' WHERE ting.tingId=map_info.tingId'+
     ' HAVING distance <= 0.1'+
     ' ORDER BY ting.cnt desc';
 
@@ -159,40 +159,7 @@ router.post('/area/:userId', async (req, res)=>{
     pool.releaseConnection(connection);
   }
 });
-// router.get('/area/:userId', async (req, res)=>{
-//   try{
-//     var connection = await pool.getConnection();
-//     const userId = req.params.userId;
-//     const order = req.headers.order;
-//     let query = 'select area from user where userId=?'; //사용자 지역정보 가져오기
-//     var area = await connection.query(query, userId);
-//
-//     //사용자 동일지역 ting정보 가져오기
-//     if(order < 1 || order > 4){
-//       res.status(400).send({message:'order header data err'});
-//     } else {
-//       let query2;
-//       if(order == 1){ //인기순 정렬
-//         query2 = 'select * from ting where area=? order by cnt desc';
-//       } else if(order == 2){ //별점순 정렬
-//         query2 = 'select ting.* from ting natural join  cleaner where ting.area=? order by cleaner.rate desc';
-//       }else if(order == 3){ //요일순 정렬
-//         query2 = 'select * from ting where area=? order by tingId';
-//       }else{ //리뷰순 정렬
-//         query2 = 'select ting.* from ting natural join cleaner where ting.area=? order by cleaner.review_cnt desc';
-//       }
-//       var ret = await connection.query(query2, area[0].area);
-//       res.status(200).send({message:'팅 조회 성공', result:ret});
-//     }
-//   }
-//   catch (err){
-//     console.log(err);
-//     res.status(500).send({ message:'server err: '+err });
-//   }
-//   finally{
-//     pool.releaseConnection(connection);
-//   }
-// });
+
 
 //팅 수정하기 (body -> price, ,userId, request:0,1,2,3)
 router.put('/:tingId', async (req, res)=>{

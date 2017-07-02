@@ -11,6 +11,10 @@ const push = require('./push.js');
 //팅 만들기
 router.post('/', async (req, res)=>{
   try{
+    if(!req.userId || req.userId != req.body.userId){
+      res.status(400).send({message :'token certification err'});
+      return;
+    }
     var connection = await pool.getConnection();
     const userId = req.body.userId;
     const msg = userId+"님이 팅에 참가하였습니다.";

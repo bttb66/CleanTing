@@ -190,33 +190,28 @@ router.post('/area/:userId', async (req, res)=>{
 //   }
 // });
 
-//팅 수정하기
-// router.put('/:tingId', async (req, res)=>{
-//   try{
-//     let request = req.body.req;
-//     if(request < 0 || req > 3){
-//       res.status(400).send({message:'request param err'});
-//     } else{
-//       var connection = await pool.getConnection();
-//       if(request == 0){
-//         let query = 'update user_ting set request =0 where tingId=? and userId=?'
-//         await connection.query(query, [req.params.tingId, req.body.userId]);
-//         let query = 'update user_ting set request =0 where tingId=? and userId=?'
-//         await connection.query(query, [req.params.tingId, req.body.userId]);
-//       } else{
-//         let query = 'update user_ting set request = ' + request +' where tingId=? and userId=?'
-//         await connection.query(query, [req.params.tingId, req.body.userId]);
-//       }
-//       res.status(200).send({message:'팅 수정 성공'});
-//     }
-//   }
-//   catch (err){
-//     res.status(500).send({message:'server err :'+err});
-//   }
-//   finally{
-//     pool.releaseConnection(connection);
-//   }
-// });
+//팅 수정하기 (body -> price, ,userId, request:0,1,2,3)
+router.put('/:tingId', async (req, res)=>{
+  try{
+    let request = req.body.request;
+    if(!request || request < 0 || request > 3){
+      res.status(400).send({message:'request param err'});
+    } else{
+      var connection = await pool.getConnection();
+      let query = 'update user_ting set request =? where tingId=? and userId=?';
+      await connection.query(query, [request, req.params.tingId, req.body.userId]);
+      let query2 = 'update user_ting set price =? where tingId=? and userId=?';
+      await connection.query(query2, [req.body.price, req.params.tingId, req.body.userId]);
+      res.status(200).send({message:'팅 수정 성공'});
+    }
+  }
+  catch (err){
+    res.status(500).send({message:'server err :'+err});
+  }
+  finally{
+    pool.releaseConnection(connection);
+  }
+});
 
 //사용자 신청 팅 조회하기
 router.get('/register/:userId', async (req, res)=>{
@@ -331,4 +326,3 @@ router.delete('/:tingId', async (req, res)=>{
 
 
 module.exports = router;
-

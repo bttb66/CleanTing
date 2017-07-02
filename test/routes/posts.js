@@ -6,7 +6,7 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3();
 const moment = require('moment');
 // const jwt = require('jsonwebtoken');
-
+//git -test
 //게시글 작성
 router.post('/', async(req, res) => {
   try {

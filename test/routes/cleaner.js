@@ -134,7 +134,7 @@ router.post('/:date', async (req, res)=>{
     const userId = req.body.userId;
     const order = req.body.order;
     //let query = 'select cleaner.* from cleaner join ting where area=? date != ? order by ting.t_id desc';
-    if(order == 0){
+    if(order!=1&&order!=2&&order!=3){
       res.status(400).send({message:'order parameter err'});
     } else{
       let query = 'select lat, lng from map_info where userId=?'; //사용자 지역정보 가져오기
@@ -225,8 +225,8 @@ router.get('/detail/:cleanerId', async (req, res) => {
 router.post('/review/:cleanerId', async(req, res) => {
   try {
     //필요한데이터 넣지않으면 오류발생처리
-    if(!(req.body.content&&req.body.userId&&req.body.user_name&&req.body.rating))
-      res.status(403).send({ message: 'please input all of content, rating, userId, user_name, cleanerId.'});
+    if(!(req.body.content&&req.body.userId&&req.body.rating))
+      res.status(403).send({ message: 'please input all of content, rating, userId'});
     //데이터 다 넣으면 실행
     else {
       var connection = await pool.getConnection();
@@ -238,12 +238,10 @@ router.post('/review/:cleanerId', async(req, res) => {
       let query2 = 'update cleaner set rate = rate+? where cleanerId=?';
       await connection.query(query2, [req.body.rating, cleanerId]);
        //클리너에 대한 리뷰작성
-
        let query3='insert into cleaner_review set ?';
        let record = {
             userId  : req.body.userId,
             cleanerId : cleanerId,
-            user_name  : req.body.user_name,
             date  : moment(new Date()).format('YYYY-MM-DD'),
             rating  : req.body.rating,
             content : req.body.content

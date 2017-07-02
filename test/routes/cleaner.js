@@ -4,6 +4,7 @@ const router = express.Router();
 //aws.config.loadFromPath('../config/aws_config.json');
 const pool = require('../config/db_pool.js');
 const s3 = new aws.S3();
+const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
@@ -229,17 +230,19 @@ router.post('/review/:cleanerId', async(req, res) => {
     //데이터 다 넣으면 실행
     else {
       var connection = await pool.getConnection();
+      const cleanerId = req.params.cleanerId;
       //별점에 참여한 인원 수 1늘리기
       let query1 = 'update cleaner set review_cnt = review_cnt + 1 where cleanerId=?';
-      await connection.query(query1, req.params.cleanerId);
+      await connection.query(query1, cleanerId);
       //별점 합계 늘려주기
-      let query2 = 'update cleaner set rate = rate + ? where clenerId=?';
-      await connection.query(query2, [req.body.rating, req.params.cleanerId]);
+      let query2 = 'update cleaner set rate = rate+? where cleanerId=?';
+      await connection.query(query2, [req.body.rating, cleanerId]);
        //클리너에 대한 리뷰작성
+
        let query3='insert into cleaner_review set ?';
        let record = {
             userId  : req.body.userId,
-            cleanerId   : req.params.cleanerId,
+            cleanerId : cleanerId,
             user_name  : req.body.user_name,
             date  : moment(new Date()).format('YYYY-MM-DD'),
             rating  : req.body.rating,

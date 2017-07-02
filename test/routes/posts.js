@@ -6,19 +6,10 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3();
 const moment = require('moment');
 // const jwt = require('jsonwebtoken');
-//git -test
+
 //게시글 작성
 router.post('/', async(req, res) => {
   try {
-    // let token = req.headers.token;
-    // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-    // if(!decoded)
-    //   res.status(400).send( {
-    //     "message" : "wrong token",
-    //     "result" : [ ]
-    //   });
-    // else{
-
     //필요한데이터 넣지않으면 오류발생처리
     if(!(req.body.title&&req.body.content&&req.body.userId))
       res.status(403).send({ message: 'please input all of title, content, userId.'});
@@ -42,7 +33,6 @@ router.post('/', async(req, res) => {
           "message" : "Succeed in writing a post"
       });
      }
-  //  }
   }
   catch(err){
       console.log(err);
@@ -59,18 +49,9 @@ router.post('/', async(req, res) => {
 //댓글작성
 router.post('/:postId', async(req, res) => {
   try {
-    // let token = req.headers.token;
-    // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-    // if(!decoded)
-    //   res.status(400).send( {
-    //     "message" : "wrong token",
-    //     "result" : [ ]
-    //   });
-    // else{
-
     //필요한데이터 넣지않으면 오류발생처리
     if(!(req.body.content&&req.body.userId))
-      res.status(403).send({ message: 'please input all of content, userId, postId.'});
+      res.status(403).send({ message: 'please input all of content, userId'});
     //안넣으면
     else {
       var connection = await pool.getConnection();
@@ -91,7 +72,6 @@ router.post('/:postId', async(req, res) => {
           "message" : "Succeed in writing a comment"
       });
      }
-  //  }
   }
   catch(err){
       console.log(err);
@@ -108,14 +88,6 @@ router.post('/:postId', async(req, res) => {
 //전체 게시글 조회
 router.get('/', async (req, res) => {
     try {
-      // let token = req.headers.token;
-      // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-      // if(!decoded)
-      //   res.status(400).send( {
-      //     "message" : "wrong token",
-      //     "result" : [ ]
-      //   });
-      // else{
         var connection = await pool.getConnection();
         let query = 'select * from post order by postId desc';
         var post =  await connection.query(query);
@@ -123,7 +95,6 @@ router.get('/', async (req, res) => {
             "message" : "전체게시글 조회에 성공하였습니다",
             "result" : { "post": post }
         });
-      // }
     }
     catch(err){
         console.log(err);
@@ -141,14 +112,6 @@ router.get('/', async (req, res) => {
 //특정 게시글 조회
 router.get('/:postId', async (req, res) => {
     try {
-      // let token = req.headers.token;
-      // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-      // if(!decoded)
-      //   res.status(400).send( {
-      //     "message" : "wrong token",
-      //     "result" : [ ]
-      //   });
-      // else{
         var connection = await pool.getConnection();
         //조회수 1늘리기
         let query1 = 'update post set view_number = view_number + 1 where postId=?';
@@ -164,7 +127,6 @@ router.get('/:postId', async (req, res) => {
             "result" : { "post": post[0],
                       "comment": comments }
         });
-      // }
     }
     catch(err){
         console.log(err);
@@ -182,14 +144,6 @@ router.get('/:postId', async (req, res) => {
 //게시판 검색(단어를 포함하는 글만 조회)
 router.get('/search/:key', async (req, res) => {
     try {
-      // let token = req.headers.token;
-      // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-      // if(!decoded)
-      //   res.status(400).send( {
-      //     "message" : "wrong token",
-      //     "result" : [ ]
-      //   });
-      // else{
         var connection = await pool.getConnection();
         //검색어
         var key = req.params.key;
@@ -200,7 +154,6 @@ router.get('/search/:key', async (req, res) => {
             "message" : "Succeed in searching a post",
             "result" : { "search": search }
         });
-      // }
     }
     catch(err){
         console.log(err);
@@ -218,14 +171,6 @@ router.get('/search/:key', async (req, res) => {
 //내가 작성한 게시글만 모아보기
 router.get('/member/:userId', async (req, res) => {
     try {
-      // let token = req.headers.token;
-      // let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-      // if(!decoded)
-      //   res.status(400).send( {
-      //     "message" : "wrong token",
-      //     "result" : [ ]
-      //   });
-      // else{
         var connection = await pool.getConnection();
         //사용자가 작성한 글만 모아 가져오기
         let query = 'select * from post where userId=? order by postId desc';
@@ -234,8 +179,6 @@ router.get('/member/:userId', async (req, res) => {
             "message" : "내가 작성한 게시글 조회에 성공하였습니다",
             "result" : { "post": post }
         });
-
-      // }
     }
     catch(err){
         console.log(err);

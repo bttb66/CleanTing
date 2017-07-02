@@ -251,37 +251,33 @@ router.get('/register/:userId', async (req, res)=>{
    }
  });
 
-//팅 완료
-router.post('/complete/:tingId', async (req, res)=>{
-  try{
-    var connection = await pool.getConnection();
-    // let record={
-    //   userId : req.body.userId,
-    //   tingId : req.params.tingId
-    // };
-    const tingId = req.params.tingId;
+ //팅 완료
+ router.get('/complete/:tingId', async (req, res)=>{
+   try{
+     var connection = await pool.getConnection();
+     const tingId = req.params.tingId;
 
-    let query = 'select user_ting.userId, ting.cleanerId, ting.date, ting.startTime, ting.endTime from ting natural join user_ting where ting.tingId=?';
+     let query = 'select user_ting.userId, ting.cleanerId, ting.date, ting.startTime, ting.endTime from ting natural join user_ting where ting.tingId=?';
+     //완료한 팅의 사용자, 팅 정보 가져오기
+     var ret = await connection.query(query, tingId);
 
-    //완료한 팅의 사용자, 팅 정보 가져오기
-    var ret = await connection.query(query, tingId);
+     //완료한 팅 정보 데이블에 사용자-팅 정보 삽입
+     await connection.query('insert into user_usage set ?', ret);
 
-    //완료한 팅 정보 데이블에 사용자-팅 정보 삽입
-    await connection.query('insert into user_usage set ?, ?', ret);
-    //완료한 팅 정보 삭제
-    await connection.query("delete from user_ting where tingId=?", tingId);
-    await connection.query('delete from ting where tingId=?', tingId);
-    res.status(200).send({message:'팅 완료 성공', ret:ret});
-  }
-  catch (err){
-    res.status(500).send({message:'server err: '+err});
-    await connection.rollback();
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
+     //완료한 팅 관련 정보 삭제
+     await connection.query('delete from ting where tingId=?', tingId);
+     res.status(200).send({message:'팅 완료 성공', ret:ret});
+   }
+   catch (err){
+     res.status(500).send({message:'server err: '+err});
+     await connection.rollback();
+   }
+   finally{
+     pool.releaseConnection(connection);
+   }
+ });
 
+ 
 //팅취소하기
 router.delete('/:tingId', async (req, res)=>{
   try{

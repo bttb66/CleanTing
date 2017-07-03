@@ -260,11 +260,11 @@ router.delete('/:tingId', async (req, res)=>{
         const userId = req.body.userId;
         const msg = userId+"님이 팅을 나갔습니다.";
         let query = 'select cnt from ting where tingId=?';
-        const cnt = connection.query(query, tingId);
+        const cnt = await connection.query(query, tingId);
 
         if(cnt[0].cnt == 1){
           let queryDel = 'delete from ting where tingId=?';
-          connection.query(queryDel, tingId);
+          await connection.query(queryDel, tingId);
         }else{
           await connection.beginTransaction();
           //user_ting 테이블의 데이터 삭제

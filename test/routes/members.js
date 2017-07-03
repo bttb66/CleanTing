@@ -35,7 +35,8 @@ router.post('/signUp', async(req, res) => {
             city : req.body.city,
             gu : req.body.gu,
             pwd : req.body.pwd,
-            push : 1
+            push : 1,
+            locationNum : req.body.locationNum
          };
         await connection.query(query1, record);
 
@@ -118,7 +119,7 @@ router.post('/login', async function(req, res){
             userId: user_info[0].userId
           };
           let token = jwt.sign(payload, req.app.get('jwt-secret'), option);
-          let query2 = 'select user.userId, user.name, user.phone, user.city, user.gu, user.push, map_info.lat, map_info.lng from user natural join map_info where userId=?'
+          let query2 = 'select user.userId, user.name, user.phone, user.city, user.gu, user.push, user.locationNumber, map_info.lat, map_info.lng from user natural join map_info where userId=?'
           let result = await connection.query(query2, userId);
           res.status(200).send({
             message:'ok',

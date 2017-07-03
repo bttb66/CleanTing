@@ -34,7 +34,7 @@ router.post('/', async (req, res)=>{
     let query2 = 'insert into user_ting set ?';
     var record2 = {
       userId : userId,
-      tingId : inserted.insertingId,
+      tingId : inserted.insertId,
       price :req.body.price,
       request : req.body.request,
       warning : req.body.warning
@@ -44,7 +44,7 @@ router.post('/', async (req, res)=>{
     //맵에 ting의 위도경도추가
     let query3='insert into map_info set ?';
     let record3 = {
-         tingId : inserted.insertingId,
+         tingId : inserted.insertId,
          lat : req.body.lat,
          lng : req.body.lng
       };

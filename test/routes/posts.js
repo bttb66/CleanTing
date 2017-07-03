@@ -26,8 +26,7 @@ router.post('/', async(req, res) => {
            date : moment(new Date()).format('YYYY-MM-DD'),
            time : moment(new Date()).format('h:mm:ss a'),
            comment_cnt : 0,
-           city : req.body.city,
-           gu : req.body.gu
+           locationNum : req.body.locationNum
         };
         await connection.query(query1, record);
         //성공시
@@ -91,8 +90,8 @@ router.post('/:postId', async(req, res) => {
 router.get('/', async (req, res) => {
     try {
         var connection = await pool.getConnection();
-        let query = 'select * from post order by postId desc';
-        var post =  await connection.query(query);
+        let query = 'select * from post where locationNumber=? order by postId desc';
+        var post =  await connection.query(query, req.query.locationNum);
         res.status(200).send({
             "message" : "전체게시글 조회에 성공하였습니다",
             "result" : post

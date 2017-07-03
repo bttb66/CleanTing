@@ -13,8 +13,8 @@ const saltRounds = 10;
 router.post('/signUp', async(req, res) => {
   try {
     //데이터 안넣으면 오류발생처리
-    if(!(req.body.userId&&req.body.name&&req.body.phone&&req.body.city&&req.body.gu&&req.body.pwd))
-      res.status(403).send({ message: 'please input all of userId, userName, userPhone, city, gu, pwd, lat, lng'});
+    if(!(req.body.userId&&req.body.name&&req.body.phone&&req.body.address&&req.body.pwd&&req.body.locationNum))
+      res.status(403).send({ message: 'please input all of userId, userName, userPhone, address, pwd, locationNum'});
     //데이터 다 넣으면 실행
     else {
       var connection = await pool.getConnection();
@@ -32,8 +32,7 @@ router.post('/signUp', async(req, res) => {
             userId : userId,
             name : req.body.name,
             phone : req.body.phone,
-            city : req.body.city,
-            gu : req.body.gu,
+            address : req.body.address,
             pwd : req.body.pwd,
             push : 1,
             locationNum : req.body.locationNum
@@ -50,7 +49,7 @@ router.post('/signUp', async(req, res) => {
          await connection.query(query2, record2);
 
         //성공시
-      res.status(200).send({  message : "회원가입 성공"});
+      res.status(200).send({  message : "회원가입성공"});
     }//else문끝
   } //try문끝
   catch(err){
@@ -119,7 +118,7 @@ router.post('/login', async function(req, res){
             userId: user_info[0].userId
           };
           let token = jwt.sign(payload, req.app.get('jwt-secret'), option);
-          let query2 = 'select user.userId, user.name, user.phone, user.city, user.gu, user.push, user.locationNumber, map_info.lat, map_info.lng from user natural join map_info where userId=?'
+          let query2 = 'select user.userId, user.name, user.phone, user.address, user.push, user.locationNumber, map_info.lat, map_info.lng from user natural join map_info where userId=?'
           let result = await connection.query(query2, userId);
           res.status(200).send({
             message:'ok',

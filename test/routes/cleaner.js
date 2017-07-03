@@ -174,23 +174,6 @@ router.post('/:date', async (req, res)=>{
   }
 });
 
-// 클리너 팅 받아온 날짜, 정렬(최신순), 이력순, 리뷰순
-router.post('/:date', async (req, res)=>{
-  try{
-    var connection = await pool.getConnection();
-    const date  = req.params.date;
-    const area = req.body.area;
-    let query = 'select cleaner.* from cleaner join ting where area=? date != ? order by ting.tingId desc';
-    var ret = await connection.query(query, [area, date]);
-    res.status(200).send({message:'ok', result:ret});
-  }
-  catch(err){
-    res.status(500).send({message:'server err: '+err});
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
 
 //클리너 상세정보조회
 router.get('/detail/:cleanerId', async (req, res) => {

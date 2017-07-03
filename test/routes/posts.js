@@ -93,7 +93,7 @@ router.get('/', async (req, res) => {
         var post =  await connection.query(query);
         res.status(200).send({
             "message" : "전체게시글 조회에 성공하였습니다",
-            "result" : { "post": post }
+            "result" : post
         });
     }
     catch(err){
@@ -152,7 +152,7 @@ router.get('/search/:key', async (req, res) => {
         var search =  await connection.query(query);
         res.status(200).send({
             "message" : "Succeed in searching a post",
-            "result" : { "search": search }
+            "result" : search
         });
     }
     catch(err){
@@ -177,7 +177,7 @@ router.get('/member/:userId', async (req, res) => {
         var post =  await connection.query(query, req.params.userId);
         res.status(200).send({
             "message" : "내가 작성한 게시글 조회에 성공하였습니다",
-            "result" : { "post": post }
+            "result" : post
         });
     }
     catch(err){

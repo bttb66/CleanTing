@@ -11,8 +11,8 @@ const moment = require('moment');
 router.post('/', async(req, res) => {
   try {
     //필요한데이터 넣지않으면 오류발생처리
-    if(!(req.body.title&&req.body.content&&req.body.userId))
-      res.status(403).send({ message: 'please input all of title, content, userId.'});
+    if(!(req.body.title&&req.body.content&&req.body.userId&&req.body.city&&req.body.gu))
+      res.status(403).send({ message: 'please input all of title, content, userId, city, gu.'});
     //데이터 다 넣으면 실행
     else {
       var connection = await pool.getConnection();
@@ -25,7 +25,9 @@ router.post('/', async(req, res) => {
            view_number : 0,
            date : moment(new Date()).format('YYYY-MM-DD'),
            time : moment(new Date()).format('h:mm:ss a'),
-           comment_cnt : 0
+           comment_cnt : 0,
+           city : req.body.city,
+           gu : req.body.gu
         };
         await connection.query(query1, record);
         //성공시

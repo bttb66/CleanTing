@@ -29,7 +29,7 @@ router.put('/phone/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     const userId = req.params.userId;
-    const phone = req.headers.phone;
+    const phone = req.body.phone;
     let query = 'update user set phone=? where userId=?';
     await connection.query(query , [phone, userId]);
 
@@ -49,9 +49,13 @@ router.put('/address/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     const userId = req.params.userId;
-    const address = req.body.address;
-    let query = 'update user set address=? where userId=?';
-    await connection.query(query, [address, userId]);
+    const city = req.body.city;
+    const gu = req.body.gu;
+
+    let query = 'update user set city=? where userId=?';
+    await connection.query(query, [city, userId]);
+    let query2 = 'update user set gu=? where userId=?';
+    await connection.query(query, [gu, userId]);
 
     res.status(200).send({message:'address update ok'});
   }
@@ -69,7 +73,7 @@ router.put('/pwd/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     const userId = req.params.userId;
-    const pwd = req.headers.pwd;
+    const pwd = req.body.pwd;
     let query = 'update user set pwd=? where userId=?';
     await connection.query(query , [pwd, userId]);
 

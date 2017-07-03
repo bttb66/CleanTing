@@ -109,7 +109,7 @@ router.get('/lately/:userId', async (req, res) => {
         var lately =  await connection.query(query, req.params.userId);
         res.status(200).send({
             "message" : "클리너 최근이용순으로 정렬 성공",
-            "result" : { "lately": lately }
+            "result" : lately
         });
     }//try문끝
     catch(err){

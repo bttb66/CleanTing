@@ -205,24 +205,24 @@ router.get('/register/:userId', async (req, res)=>{
 });
 
 // //팅 상세정보 조회
- router.get('/detail/:tingId', async (req, res)=>{
-   try{
-     var connection = await pool.getConnection();
-     let userId = req.headers.userId;
-     let tingId = req.params.tingId;
-     let query = 'select * from user_ting where userId=? and tingId=?';
-
-     var result = await connection.query(query, [req.userId, tingId]);
-     res.status(200).send({message : '팅 상세 정보조회 성공', result : result});
-   }
-   catch(err){
-     console.log(err);
-     res.status(500).send({message:'server err: '+err});
-   }
-   finally{
-     pool.releaseConnection(connection);
-   }
- });
+ // router.get('/detail/:tingId', async (req, res)=>{
+ //   try{
+ //     var connection = await pool.getConnection();
+ //     let userId = req.headers.userId;
+ //     let tingId = req.params.tingId;
+ //     let query = 'select * from user_ting where userId=? and tingId=?';
+ //
+ //     var result = await connection.query(query, [req.userId, tingId]);
+ //     res.status(200).send({message : '팅 상세 정보조회 성공', result : result});
+ //   }
+ //   catch(err){
+ //     console.log(err);
+ //     res.status(500).send({message:'server err: '+err});
+ //   }
+ //   finally{
+ //     pool.releaseConnection(connection);
+ //   }
+ // });
 
  //팅 완료
  router.get('/complete/:tingId', async (req, res)=>{

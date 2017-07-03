@@ -253,43 +253,50 @@ router.get('/register/:userId', async (req, res)=>{
 router.delete('/:tingId', async (req, res)=>{
   try{
       if(!req.body.userId){
-          res.status(403).send({message:'please input userId.'});
+        res.status(403).send({message:'please input userId.'});
       }else{
-      var connection = await pool.getConnection();
-      await connection.beginTransaction();
-      const tingId = req.params.tingId;
-      const userId = req.body.userId;
-      const msg = userId+"님이 팅을 나갔습니다.";
-      //user_ting 테이블의 데이터 삭제
-      let query1 = 'delete from user_ting where userId=? and tingId=?';
-      await connection.query(query1, [userId, tingId]);
+        var connection = await pool.getConnection();
+        const tingId = req.params.tingId;
+        const userId = req.body.userId;
+        const msg = userId+"님이 팅을 나갔습니다.";
+        let query = 'select cnt from ting where tingId=?';
+        const cnt = connection.query(query, tingId);
 
-      //취소한 팅의 인원 줄이기
-      let query2 = 'update ting set cnt = cnt - 1 where tingId=?';
-      await connection.query(query2, tingId);
+        if(cnt[0].cnt == 1){
+          let queryDel = 'delete from ting where tingId=?';
+          connection.query(queryDel, tingId);
+        }else{
+          await connection.beginTransaction();
+          //user_ting 테이블의 데이터 삭제
+          let query1 = 'delete from user_ting where userId=? and tingId=?';
+          await connection.query(query1, [userId, tingId]);
 
-      //알람부르기 & 메세지전송 & 저장
-      // push.callAlarm(token, device, msg); //token, device 수정
-      //
-      // let query3 = 'insert into alarm set ?';
-      // let record3 = {
-      //   tingId : tingId,
-      //   content : msg
-      // };
-      // await connection.query(query3, record3);
+          //취소한 팅의 인원 줄이기
+          let query2 = 'update ting set cnt = cnt - 1 where tingId=?';
+          await connection.query(query2, tingId);
 
-      res.status(200).send({message:'팅 취소 성공'});
-      await connection.commit();
-    }//else문 끝
-  }//try문 끝
-  catch (err){
-    res.status(500).send({message:'server err: '+err});
-    await connection.rollback();
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
+          //알람부르기 & 메세지전송 & 저장
+          // push.callAlarm(token, device, msg); //token, device 수정
+          //
+          // let query3 = 'insert into alarm set ?';
+          // let record3 = {
+          //   tingId : tingId,
+          //   content : msg
+          // };
+          // await connection.query(query3, record3);
+          await connection.commit();
+        }
+        res.status(200).send({message:'팅 취소 성공'});
+      }//else문 끝
+    }//try문 끝
+    catch (err){
+      res.status(500).send({message:'server err: '+err});
+      await connection.rollback();
+    }
+    finally{
+      pool.releaseConnection(connection);
+    }
+  });
 
 
 module.exports = router;

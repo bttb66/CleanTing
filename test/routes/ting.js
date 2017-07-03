@@ -141,8 +141,10 @@ router.post('/area/:userId', async (req, res)=>{
      '-radians(?))+sin(radians(?))*sin(radians(lat))))'+
      'AS distance'+
     ' FROM map_info'+
-    ' join ting'+
+    ' join ting join user_ting'+
     ' WHERE ting.tingId=map_info.tingId'+
+    ' and ting.tingId=user_ting.tingId'+
+    ' and user_ting.userId != ?'+
     ' HAVING distance <= 0.1'+
     ' ORDER BY ting.cnt desc';
 
@@ -228,16 +230,16 @@ router.get('/register/:userId', async (req, res)=>{
      var connection = await pool.getConnection();
      const tingId = req.params.tingId;
 
-     let query = 'select user_ting.userId, ting.cleanerId, ting.date, ting.startTime, ting.endTime from ting natural join user_ting where ting.tingId=?';
-     //완료한 팅의 사용자, 팅 정보 가져오기
-     var ret = await connection.query(query, tingId);
+     let query = ""+
+    "insert into user_usage(userId, cleanerId, date, startTime, endTime)"+
+    " select user_ting.userId, ting.cleanerId, ting.date, ting.startTime, ting.endTime"+
+    " from ting natural join user_ting"+
+    " where ting.tingId=?";
+    await connection.query(query, tingId);
 
-     //완료한 팅 정보 데이블에 사용자-팅 정보 삽입
-     await connection.query('insert into user_usage set ?', ret);
-
-     //완료한 팅 관련 정보 삭제
-     await connection.query('delete from ting where tingId=?', tingId);
-     res.status(200).send({message:'팅 완료 성공'});
+    //완료한 팅 관련 정보 삭제
+    await connection.query('delete from ting where tingId=?', tingId);
+    res.status(200).send({message:'팅 완료 성공'});
    }
    catch (err){
      res.status(500).send({message:'server err: '+err});

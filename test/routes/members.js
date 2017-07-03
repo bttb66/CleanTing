@@ -170,12 +170,19 @@ router.put('/pwd/:phone', async (req, res)=>{
         var connection = await pool.getConnection();
         // var phone = req.params.phone; //핸드폰번호
         var pwd = req.body.pwd; //비밀번호
-        let query = 'update user set pwd =? where phone=?';
-        await connection.query(query, [pwd, req.params.phone]);
-        res.status(200).send({
-            "message" : "비밀번호 변경 성공"
-        });
-      }//else문 끝
+        let query1 = 'select * from user where phone=?';
+        var info=await connection.query(query1, req.params.phone);
+
+        if(info[0]==null){
+          res.status(401).send({ message: '존재하지 않는 회원정보입니다'});
+        }else{
+          let query2 = 'update user set pwd=? where phone=?';
+          await connection.query(query2, [pwd, req.params.phone]);
+          res.status(200).send({
+              "message" : "비밀번호 변경 성공"
+          });
+        }//else문 끝
+      }//큰else문 끝
     }//try문 끝
   catch (err){
     res.status(500).send({message:'server err :'+err});

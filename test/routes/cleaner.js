@@ -77,16 +77,16 @@ router.post('/register', upload.single('image'),async(req, res) => {
 //클리너검색
 router.get('/search/:key', async (req, res) => {
     try {
-        var connection = await pool.getConnection();
-        //검색어변수
-        var key = req.params.key;
-        //검색어와 일치하는 클리너 가져오기
-        let query = "select * from cleaner where name like %"+key+"%";
-        var search =  await connection.query(query);
-        res.status(200).send({
-            "message" : "Succeed in searching a cleaner",
-            "result" : search
-        });
+      var connection = await pool.getConnection();
+      //검색어변수
+      var key = req.params.key;
+      //검색어와 일치하는 클리너 가져오기
+      let query = "select * from cleaner where name like '%"+key+"%'";
+      var search =  await connection.query(query);
+      res.status(200).send({
+          "message" : "Succeed in searching a cleaner",
+          "result" : search
+      });
     }//try문끝
     catch(err){
         console.log(err);

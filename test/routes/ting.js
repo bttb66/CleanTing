@@ -11,10 +11,6 @@ const push = require('./push.js');
 //팅 만들기
 router.post('/', async (req, res)=>{
   try{
-    // if(!req.userId || req.userId != req.body.userId){
-    //   res.status(400).send({message :'token certification err'});
-    //   return;
-    // }
     var connection = await pool.getConnection();
     const userId = req.body.userId;
     const msg = userId+"님이 팅에 참가하였습니다.";
@@ -28,8 +24,13 @@ router.post('/', async (req, res)=>{
     };
     //ting 테이블에 팅정보 새로 삽입
     let query = 'insert into ting set ?';
-    var inserted = await connection.query(query, record);
-
+    var inserted = await connection.query(query, record, (err, data)=>{
+      if(err){
+        res.status(400).send({message:'ting insert err'});
+        return;
+      }else return data;
+    });
+    console.log(inserted);
     //사용자 팅 등록정보 삽입(user_ting)
     let query2 = 'insert into user_ting set ?';
     var record2 = {
@@ -39,7 +40,12 @@ router.post('/', async (req, res)=>{
       request : req.body.request,
       warning : req.body.warning
     };
-    await connection.query(query2, record2);
+    await connection.query(query2, record2, (err, data)=>{
+      if(err){
+        res.status(400).send({message:'user_ting insert err'});
+        return;
+      }else return data;
+    });
 
     //맵에 ting의 위도경도추가
     let query3='insert into map_info set ?';
@@ -48,7 +54,12 @@ router.post('/', async (req, res)=>{
          lat : req.body.lat,
          lng : req.body.lng
       };
-     await connection.query(query3, record3);
+     await connection.query(query3, record3, (err, data)=>{
+       if(err){
+         res.status(400).send({message:'map_info insert err'});
+         return;
+       }else return data;
+     });
 
     //알람부르기 & 메세지전송 & 저장
     // push.callAlarm(token, device, msg); //token, device 수정
@@ -64,8 +75,7 @@ router.post('/', async (req, res)=>{
   }
   catch (err){
     console.log(err);
-    res.status(500).send({message : "server err : "+err,
-  ret:inserted});
+    res.status(500).send({message : "server err : "+err});
   }
   finally{
     pool.releaseConnection(connection);

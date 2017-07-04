@@ -121,7 +121,7 @@ router.get('/:postId', async (req, res) => {
         let query2 = 'select * from post where postId=?';
         let post = await connection.query(query2, req.params.postId);
         //게시글에 달린 댓글들 가져오기
-        let query3 = 'select * from comment where postId=?';
+        let query3 = 'select * from comment where postId=? order by commentId desc';
         let comments = await connection.query(query3, req.params.postId);
         res.status(200).send({
             "message" : "게시물 상세조회에 성공하였습니다.",

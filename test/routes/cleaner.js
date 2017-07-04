@@ -81,8 +81,8 @@ router.get('/search/:key', async (req, res) => {
         //검색어변수
         var key = req.params.key;
         //검색어와 일치하는 클리너 가져오기
-        let query = "select * from cleaner where name like %?%";
-        var search =  await connection.query(query, key);
+        let query = "select * from cleaner where name like %"+key+"%";
+        var search =  await connection.query(query);
         res.status(200).send({
             "message" : "Succeed in searching a cleaner",
             "result" : search

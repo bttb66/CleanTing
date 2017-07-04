@@ -143,17 +143,17 @@ router.get('/:postId', async (req, res) => {
 });
 
 //게시판 검색(단어를 포함하는 글만 조회)
-router.post('/search', async (req, res) => {
+router.post('/search/:key', async (req, res) => {
     try {
         var connection = await pool.getConnection();
         //검색어
-        var key = req.body.key;
+        var key = req.params.key;
         //검색어와 일치하는 게시판 가져오기(제목과 내용이 일치하게)
         let query = "select * from post where "+
         " locationNum=? and"+
-        " (title like '%?%' or content like '%?%')"+
+        " (title like '%"+key+"%' or content like '%"+key+"%')"+
         " order by postId desc";
-        var search =  await connection.query(query, [req.body.locationNum, key, key]);
+        var search =  await connection.query(query, req.body.locationNum);
         res.status(200).send({
             "message" : "Succeed in searching a post",
             "result" : search

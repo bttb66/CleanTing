@@ -167,12 +167,12 @@ router.get('/phone/:phone', async (req, res)=>{
     var connection = await pool.getConnection();
     let query = 'select * from user where phone=?';
     var info=await connection.query(query1, req.params.phone);
-    if(!info[0])
+    if(info[0] == null)
       res.status(400).send({message:'존재하지 않는 회원 정보입니다'});
     else
       res.status(200).send({message:'존재하는 회원입니다. 비밀번호를 변경해 주세요'});
   }
-  catch{
+  catch(err){
     res.status(500).send({message:'server err', err});
   }
   finally{

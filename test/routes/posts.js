@@ -11,8 +11,8 @@ const moment = require('moment');
 router.post('/', async(req, res) => {
   try {
     //필요한데이터 넣지않으면 오류발생처리
-    if(!(req.body.title&&req.body.content&&req.body.userId&&req.body.city&&req.body.gu))
-      res.status(403).send({ message: 'please input all of title, content, userId, city, gu.'});
+    if(!(req.body.title&&req.body.content&&req.body.userId&&req.body.locationNum))
+      res.status(403).send({ message: 'please input all of title, content, userId, locationNum.'});
     //데이터 다 넣으면 실행
     else {
       var connection = await pool.getConnection();
@@ -90,7 +90,7 @@ router.post('/:postId', async(req, res) => {
 router.get('/', async (req, res) => {
     try {
         var connection = await pool.getConnection();
-        let query = 'select * from post where locationNumber=? order by postId desc';
+        let query = 'select * from post where locationNum=? order by postId desc';
         var post =  await connection.query(query, req.query.locationNum);
         res.status(200).send({
             "message" : "전체게시글 조회에 성공하였습니다",
@@ -143,14 +143,17 @@ router.get('/:postId', async (req, res) => {
 });
 
 //게시판 검색(단어를 포함하는 글만 조회)
-router.get('/search/:key', async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         var connection = await pool.getConnection();
         //검색어
-        var key = req.params.key;
+        var key = req.body.key;
         //검색어와 일치하는 게시판 가져오기(제목과 내용이 일치하게)
-        let query = "select * from post where title like '%"+key+"%' or content like '%"+key+"%' order by postId desc";
-        var search =  await connection.query(query);
+        let query = "select * from post where "+
+        " locationNum=? and"+
+        " (title like '%?%' or content like '%?%')"+
+        " order by postId desc";
+        var search =  await connection.query(query, [req.body.locationNum, key, key]);
         res.status(200).send({
             "message" : "Succeed in searching a post",
             "result" : search

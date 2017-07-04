@@ -77,7 +77,7 @@ router.put('/pwd/:userId', async (req, res)=>{
     let query = 'update user set pwd=? where userId=?';
     await connection.query(query , [pwd, userId]);
 
-    res.status(200).send({message:'phone update ok'});
+    res.status(200).send({message:'pwd update ok'});
   }
   catch(err){
     console.log(err);

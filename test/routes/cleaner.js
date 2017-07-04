@@ -134,13 +134,11 @@ router.post('/:date', async (req, res)=>{
     const userId = req.body.userId;
     const order = req.body.order;
     //let query = 'select cleaner.* from cleaner join ting where area=? date != ? order by ting.t_id desc';
-    if(order!=1&&order!=2&&order!=3){
+    if(order < 1 || order > 3){
       res.status(400).send({message:'order parameter err'});
     } else{
-      let query = 'select lat, lng from map_info where userId=?'; //사용자 지역정보 가져오기
-      var area = await connection.query(query, userId);
-      const userLat = area[0].lat;
-      const userLng = area[0].lng;
+      const userLat = req.body.userLat;
+      const userLng = req.body.userLng;
       let orderBy = "";
 
       if(order == 1){ //별점순

@@ -143,7 +143,7 @@ router.post('/area/:userId', async (req, res)=>{
     ' HAVING distance <= 0.1'+
     ' ORDER BY ting.cnt desc';
 
-    var result = await connection.query(query2, [userLat, userLng, userLat]);
+    var result = await connection.query(query2, [userLat, userLng, userLat, userId]);
     //lat : 위도, lng : 경도
     res.status(200).send({message:'OK', result:result});
 

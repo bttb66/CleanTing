@@ -24,12 +24,7 @@ router.post('/', async (req, res)=>{
     };
     //ting 테이블에 팅정보 새로 삽입
     let query = 'insert into ting set ?';
-    var inserted = await connection.query(query, record, (err, data)=>{
-      if(err){
-        res.status(400).send({message:'ting insert err'});
-        return;
-      }else return data;
-    });
+    var inserted = await connection.query(query, record);
     console.log(inserted);
     //사용자 팅 등록정보 삽입(user_ting)
     let query2 = 'insert into user_ting set ?';
@@ -40,12 +35,7 @@ router.post('/', async (req, res)=>{
       request : req.body.request,
       warning : req.body.warning
     };
-    await connection.query(query2, record2, (err, data)=>{
-      if(err){
-        res.status(400).send({message:'user_ting insert err'});
-        return;
-      }else return data;
-    });
+    await connection.query(query2, record2);
 
     //맵에 ting의 위도경도추가
     let query3='insert into map_info set ?';
@@ -54,12 +44,7 @@ router.post('/', async (req, res)=>{
          lat : req.body.lat,
          lng : req.body.lng
       };
-     await connection.query(query3, record3, (err, data)=>{
-       if(err){
-         res.status(400).send({message:'map_info insert err'});
-         return;
-       }else return data;
-     });
+     await connection.query(query3, record3);
 
     //알람부르기 & 메세지전송 & 저장
     // push.callAlarm(token, device, msg); //token, device 수정

@@ -49,13 +49,13 @@ router.put('/address/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     const userId = req.params.userId;
-    const city = req.body.city;
-    const gu = req.body.gu;
+    const address = req.body.address;
+    const locationNum = req.body.locationNum;
 
-    let query = 'update user set city=? where userId=?';
-    await connection.query(query, [city, userId]);
-    let query2 = 'update user set gu=? where userId=?';
-    await connection.query(query, [gu, userId]);
+    let query = 'update user set address=? where userId=?';
+    await connection.query(query, address);
+    let query2 = 'update user set locationNum=? where userId=?';
+    await connection.query(query, locationNum);
 
     res.status(200).send({message:'address update ok'});
   }

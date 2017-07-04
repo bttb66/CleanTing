@@ -151,16 +151,16 @@ router.post('/:date', async (req, res)=>{
         orderBy = "review_cnt";
       }
       let query2 = ''+
-    ' SELECT cleaner.*,'+
-    ' (6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
-    ' -radians(?))+sin(radians(?))*sin(radians(lat))))'+
-    ' AS distance'+
-    ' FROM map_info'+
-    ' join cleaner join ting'+
-    ' WHERE map_info.cleanerId=cleaner.cleanerId'+
-    ' and map_info.cleanerId=ting.cleanerId and ting.date!=?'+
-    ' HAVING distance <= 0.1'+
-    ' order by ? desc';
+        ' SELECT cleaner.*,'+
+        ' (6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
+        ' -radians(?))+sin(radians(?))*sin(radians(lat))))'+
+        ' AS distance'+
+        ' FROM map_info'+
+        ' join cleaner'+
+        ' WHERE map_info.cleanerId=cleaner.cleanerId'+
+        ' and cleaner.cleanerId not in (select ting.cleanerId from cleanting.ting where date=?)'+
+        ' HAVING distance <= 0.1'+
+        ' order by ? desc';
 
     var ret = await connection.query(query2, [userLat, userLng, userLat, date, order]);
     res.status(200).send({message:'ok', result:ret});

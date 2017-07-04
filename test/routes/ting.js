@@ -138,7 +138,6 @@ router.post('/area/:userId', async (req, res)=>{
     ' FROM map_info'+
     ' join ting'+
     ' WHERE ting.tingId=map_info.tingId'+
-    ' and ting.tingId=user_ting.tingId'+
     ' and ting.tingId not in (select tingId from user_ting where userId=?)'+
     ' HAVING distance <= 0.1'+
     ' ORDER BY ting.cnt desc';

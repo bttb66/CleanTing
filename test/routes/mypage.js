@@ -53,9 +53,9 @@ router.put('/address/:userId', async (req, res)=>{
     const locationNum = req.body.locationNum;
 
     let query = 'update user set address=? where userId=?';
-    await connection.query(query, address);
+    await connection.query(query, [address, userId]);
     let query2 = 'update user set locationNum=? where userId=?';
-    await connection.query(query, locationNum);
+    await connection.query(query, [locationNum, userId]);
 
     res.status(200).send({message:'address update ok'});
   }

@@ -161,29 +161,42 @@ router.get('/id/:phone', async (req, res) => {
 
 });
 
+//폰번호로 계정 확인
+router.get('/phone/:phone', async (req, res)=>{
+  try{
+    var connection = await pool.getConnection();
+    let query = 'select * from user where phone=?';
+    var info=await connection.query(query1, req.params.phone);
+    if(!info[0])
+      res.status(400).send({message:'존재하지 않는 회원 정보입니다'});
+    else
+      res.status(200).send({message:'존재하는 회원입니다. 비밀번호를 변경해 주세요'});
+  }
+  catch{
+    res.status(500).send({message:'server err', err});
+  }
+  finally{
+    pool.releaseConnection(connection);
+  }
+});
+
 //비밀번호수정
 router.put('/pwd/:phone', async (req, res)=>{
   try{
     if(!req.body.pwd)
       res.status(403).send({ message: 'please input pwd'});
     else{
-        var connection = await pool.getConnection();
-        // var phone = req.params.phone; //핸드폰번호
-        var pwd = req.body.pwd; //비밀번호
-        let query1 = 'select * from user where phone=?';
-        var info=await connection.query(query1, req.params.phone);
+      var connection = await pool.getConnection();
+      // var phone = req.params.phone; //핸드폰번호
+      var pwd = req.body.pwd; //비밀번호
 
-        if(info[0]==null){
-          res.status(401).send({ message: '존재하지 않는 회원정보입니다'});
-        }else{
-          let query2 = 'update user set pwd=? where phone=?';
-          await connection.query(query2, [pwd, req.params.phone]);
-          res.status(200).send({
-              "message" : "비밀번호 변경 성공"
-          });
-        }//else문 끝
-      }//큰else문 끝
-    }//try문 끝
+      let query = 'update user set pwd=? where phone=?';
+      await connection.query(query, [pwd, req.params.phone]);
+      res.status(200).send({
+          "message" : "비밀번호 변경 성공"
+      });
+    }//큰else문 끝
+  }//try문 끝
   catch (err){
     res.status(500).send({message:'server err :'+err});
   }

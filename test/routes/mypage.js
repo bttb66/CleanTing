@@ -11,7 +11,7 @@ const moment = require('moment');
 router.get('/usage/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
-    let query = 'select * from user_usage where userId=? order by usageId desc';
+    let query = 'select * from user_usage natural join cleaner where userId=? order by usageId desc';
     let result = await connection.query(query, req.params.userId);
     res.status(200).send({message:'ok', ret:result});
   }

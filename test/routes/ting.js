@@ -186,7 +186,10 @@ router.get('/register/:userId', async (req, res)=>{
   try{
     var connection = await pool.getConnection();
     const userId = req.params.userId;
-    let query = 'select * from ting natural join user_ting where userId=?'
+    let query = ''+
+    'select * from ting natural join user_ting'+
+    ' natural join cleanting.cleaner'+
+    ' where userId=?'
     var ret = await connection.query(query, userId);
     res.status(200).send({message:'사용자가 신청한 팅 조회 성공', result:ret});
   }

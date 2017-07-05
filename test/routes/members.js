@@ -36,7 +36,7 @@ router.post('/signUp', async(req, res) => {
             pwd : req.body.pwd,
             push : 1,
             locationNum : req.body.locationNum,
-            token :  req.body.token
+            deviceToken :  req.body.deviceToken
          };
         await connection.query(query1, record);
 
@@ -112,8 +112,8 @@ router.post('/login', async function(req, res){
         else {
           //클라에서 token 보낼 경우만 갱신
             if(req.body token){
-              let query ='update user set token=? where userId=?';
-              await connection.query(query, [req.body.token, userId]);
+              let query ='update user set deviceToken=? where userId=?';
+              await connection.query(query, [req.body.deviceToken, userId]);
             }
 
           //jwt 발급하고 성공메세지 보내주기

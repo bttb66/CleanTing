@@ -131,13 +131,14 @@ router.post('/area/:userId', async (req, res)=>{
     const userLng = req.body.userLng;
 
     let query2 = ''+
-    'SELECT ting.*,'+
+    'SELECT ting.*, cleaner.*'+
      '(6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
      '-radians(?))+sin(radians(?))*sin(radians(lat))))'+
      'AS distance'+
     ' FROM map_info'+
-    ' join ting'+
+    ' join ting join cleaner'+
     ' WHERE ting.tingId=map_info.tingId'+
+    ' and ting.cleanerId=cleaner.cleanerId'+
     ' and ting.tingId not in (select tingId from user_ting where userId=?)'+
     ' HAVING distance <= 0.1'+
     ' ORDER BY ting.cnt desc';

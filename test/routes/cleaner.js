@@ -105,7 +105,7 @@ router.get('/lately/:userId', async (req, res) => {
     try {
         var connection = await pool.getConnection();
         //최근이용클리너 데이터 가져오기
-        let query = "select cleaner.* from cleaner natural join user_usage where userId=? order by user_usage.usageId desc";
+        let query = "select cleaner.*, user_usage.date from cleaner natural join user_usage where userId=? order by user_usage.usageId desc";
         var lately =  await connection.query(query, req.params.userId);
         res.status(200).send({
             "message" : "클리너 최근이용순으로 정렬 성공",

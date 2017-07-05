@@ -170,6 +170,8 @@ router.put('/:tingId', async (req, res)=>{
       await connection.query(query, [request, req.params.tingId, req.body.userId]);
       let query2 = 'update user_ting set price =? where tingId=? and userId=?';
       await connection.query(query2, [req.body.price, req.params.tingId, req.body.userId]);
+      let query3 = 'update user_ting set warning =? where tingId=? and userId=?';
+      await connection.query(query3, [req.body.warning, req.params.tingId, req.body.userId]);
       res.status(200).send({message:'팅 수정 성공'});
     }
   }
@@ -180,6 +182,7 @@ router.put('/:tingId', async (req, res)=>{
     pool.releaseConnection(connection);
   }
 });
+
 
 //사용자 신청 팅 조회하기
 router.get('/register/:userId', async (req, res)=>{

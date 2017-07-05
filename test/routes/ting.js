@@ -131,7 +131,7 @@ router.post('/area/:userId', async (req, res)=>{
     const userLng = req.body.userLng;
 
     let query2 = ''+
-    'SELECT ting.*, cleaner.*'+
+    'SELECT ting.*, cleaner.*,'+
      '(6371*acos(cos(radians(?))*cos(radians(lat))*cos(radians(lng)'+
      '-radians(?))+sin(radians(?))*sin(radians(lat))))'+
      'AS distance'+

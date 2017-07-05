@@ -35,7 +35,8 @@ router.post('/signUp', async(req, res) => {
             address : req.body.address,
             pwd : req.body.pwd,
             push : 1,
-            locationNum : req.body.locationNum
+            locationNum : req.body.locationNum,
+            token :  req.body.token
          };
         await connection.query(query1, record);
 
@@ -109,6 +110,12 @@ router.post('/login', async function(req, res){
 
         if(pwd!=user_info[0].pwd) res.status(401).send({message: 'wrong email or password'});
         else {
+          //클라에서 token 보낼 경우만 갱신
+            if(req.body token){
+              let query ='update user set token=? where userId=?';
+              await connection.query(query, [req.body.token, userId]);
+            }
+
           //jwt 발급하고 성공메세지 보내주기
           let option = {
             algorithm : 'HS256',

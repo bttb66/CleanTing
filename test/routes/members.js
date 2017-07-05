@@ -210,30 +210,6 @@ router.put('/pwd/:phone', async (req, res)=>{
   }
 });
 
-//탈퇴하기
-router.delete('/withdraw/:userId', async (req, res)=>{
-  try{
-    //신청한 팀 있는지 확인 후 있을 경우 cnt-1, cascade로 삭제
-    var connection = await pool.getConnection();
-    const userId = req.params.userId;
-    //신청한 팅이 있을 경우 해당 팅 cnt -1
-    let query = 'update user_ting natural join ting set cnt = cnt-1 where userId=?';
-    await connection.query(query, userId);
-
-    let query2 = 'delete from user where userId=?';
-    await connection.query(query2, userId);
-    res.status(200).send({message:'user withdraw success'});
-  }
-  catch(err){
-    console.log(err);
-    res.status(500).send({message:'server err: '+err});
-    await connection.rollback();
-  }
-  finally{
-    pool.releaseConnection(connection);
-  }
-});
-
 //로그아웃
 
 module.exports = router;

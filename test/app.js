@@ -33,6 +33,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use( function(req, res, next){
+  var token = req.headers.token;
+
+  let url = req.url;
+  let ret = url.match('/members');
+console.log('app.js req 확인: ', ret);
+  if(ret){
+    next();
+  } else{
+    if(!token) {
+      console.log('no token');
+      res.status(400).send({message: 'no token'});
+      return;
+    }
+    jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
+      if(err){
+        res.status(401).send({message: err.message });
+        return;
+      }
+      else{
+        req.userId = decoded.userId;
+        console.log('decoded userId : ',req.userId);
+        next();
+      }
+    });
+  }
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/members', members);
@@ -44,26 +72,6 @@ app.use('/push', push);
 app.use('/alarm', alarm);
 app.use(function(req, res, next){
   console.log('this is from app');
-});
-
-app.use(function(req, res, next){
-  var token = req.headers.token;
-  if(!token) {
-    console.log('no token');
-    res.status(400).send({message: 'no token'});
-    return;
-  }
-  jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
-    if(err){
-      res.status(401).send({message: err.message });
-      return;
-    }
-    else{
-      req.userId = decoded.userId;
-      console.log('decoded userId : ',userId);
-      next();
-    }
-  });
 });
 
 // catch 404 and forward to error handler

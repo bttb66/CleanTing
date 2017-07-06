@@ -150,11 +150,16 @@ router.get('/id/:phone', async (req, res) => {
         // let query = "select userId from user where phone like '%"+phone+"%'";
         let query = "select userId from user where phone=?";
         var userId =  await connection.query(query, req.params.phone);
-        res.status(200).send({
-            "message" : "아이디가 존재합니다",
-            "result" : userId[0]
-        });
-    }
+        console.log(userId);
+        if(userId[0] == null){
+         res.status(401).send({"message":"아이디가 존재하지 않습니다"});
+       }else{
+          res.status(200).send({
+              "message" : "아이디가 존재합니다",
+              "result" : userId[0]
+          });
+        }//else문끝
+    }//try문끝
     catch(err){
         console.log(err);
         res.status(500).send({
@@ -165,7 +170,6 @@ router.get('/id/:phone', async (req, res) => {
     finally{
         pool.releaseConnection(connection);
     }
-
 });
 
 //폰번호로 계정 확인

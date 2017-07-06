@@ -111,7 +111,7 @@ router.post('/login', async function(req, res){
         if(pwd!=user_info[0].pwd) res.status(401).send({message: 'wrong email or password'});
         else {
           //클라에서 token 보낼 경우만 갱신
-            if(req.body.token){
+            if(req.body.deviceToken){
               let query ='update user set deviceToken=? where userId=?';
               await connection.query(query, [req.body.deviceToken, userId]);
             }

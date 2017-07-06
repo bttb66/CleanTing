@@ -6,7 +6,9 @@ const pool = require('../config/db_pool.js');
 const s3 = new aws.S3();
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
-const push = require('./push.js');
+const FCM = require('fcm-push');
+var serverKey = require('../config/serverKey').serverKey;
+var fcm = new FCM(serverKey);
 
 //팅 만들기
 router.post('/', async (req, res)=>{
@@ -97,15 +99,43 @@ router.post('/:tingId', async (req, res)=>{
       };
       await connection.query(query3, record);
 
+      //알림 받을 사용자들의 토큰 가져오기
+      let query4 ='select user.deviceToken from user natural join user_ting where user_ting.tingId=?'
+      let result = await connection.query(query4, tingId);
+      let ids=[];
+      console.log('result : ',result);
+      for(var i in result){
+        ids.push(result[i].deviceToken);
+      }
+
+      console.log('ids: ',ids);
+      //알림 보내기
       //알람부르기 & 메세지전송 & 저장
-      // push.callAlarm(token, device, msg); //token, device 수정
-      //
-      // let query4 = 'insert into alarm set ?';
-      // let record4 = {
-      //   tingId : tingId,
-      //   content : msg
-      // };
-      // await connection.query(query4, record4);
+      var message = {
+        registration_ids: ids , // required fill with device token or topics
+        notification: {
+            title: 'Cleanting',
+            body: req.body.userName+'님이 팅에 참가하셨습니다.'
+        }
+      };
+      console.log(serverKey);
+      fcm.send(message)
+          .then(function(response){
+            console.log(message);
+              console.log("Successfully sent with response: ", response);
+          })
+          .catch(function(err){
+              console.log("Something has gone wrong!");
+              console.error(err);
+          });
+
+      //알림 테이블에 알림 내용 저장
+      let record2 = {
+        tingId: tingId,
+        content: msg,
+        time: moment(new Date()).format('h:mm a')
+      };
+      await connection.query('insert into alarm set ?', record2);
 
       res.status(200).send({message:'팅 신청 성공'});
       await connection.commit();
@@ -278,15 +308,43 @@ router.delete('/:tingId', async (req, res)=>{
           let query2 = 'update ting set cnt = cnt - 1 where tingId=?';
           await connection.query(query2, tingId);
 
+            //알림 받을 사용자들의 토큰 가져오기
+          let query4 ='select user.deviceToken from user natural join user_ting where user_ting.tingId=?'
+          let result = await connection.query(query4, tingId);
+          let ids=[];
+          console.log('result : ',result);
+          for(var i in result){
+            ids.push(result[i].deviceToken);
+          }
+
+          console.log('ids: ',ids);
+          //알림 보내기
           //알람부르기 & 메세지전송 & 저장
-          // push.callAlarm(token, device, msg); //token, device 수정
-          //
-          // let query3 = 'insert into alarm set ?';
-          // let record3 = {
-          //   tingId : tingId,
-          //   content : msg
-          // };
-          // await connection.query(query3, record3);
+          var message = {
+            registration_ids: ids , // required fill with device token or topics
+            notification: {
+                title: 'Cleanting',
+                body: req.body.userName+'님이 팅에서 나가셨습니다.'
+            }
+          };
+          console.log(serverKey);
+          fcm.send(message)
+              .then(function(response){
+                console.log(message);
+                  console.log("Successfully sent with response: ", response);
+              })
+              .catch(function(err){
+                  console.log("Something has gone wrong!");
+                  console.error(err);
+              });
+
+          //알림 테이블에 알림 내용 저장
+          let record2 = {
+            tingId: tingId,
+            content: msg,
+            time: moment(new Date()).format('h:mm a')
+          };
+          await connection.query('insert into alarm set ?', record2);
           await connection.commit();
         }
         res.status(200).send({message:'팅 취소 성공'});

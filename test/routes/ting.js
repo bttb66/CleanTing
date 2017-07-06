@@ -170,7 +170,7 @@ router.post('/area/:userId', async (req, res)=>{
     ' WHERE ting.tingId=map_info.tingId'+
     ' and ting.cleanerId=cleaner.cleanerId'+
     ' and ting.tingId not in (select tingId from user_ting where userId=?)'+
-    ' HAVING distance <= 0.1'+
+    ' HAVING distance <= 30'+
     ' ORDER BY ting.cnt desc';
 
     var result = await connection.query(query2, [userLat, userLng, userLat, userId]);

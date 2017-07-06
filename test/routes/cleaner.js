@@ -157,7 +157,7 @@ router.post('/:date', async (req, res)=>{
         ' join cleaner'+
         ' WHERE map_info.cleanerId=cleaner.cleanerId'+
         ' and cleaner.cleanerId not in (select ting.cleanerId from cleanting.ting where date=?)'+
-        ' HAVING distance <= 0.1'+
+        ' HAVING distance <= 30'+
         ' order by ' + orderBy + ' desc';
 
     var ret = await connection.query(query2, [userLat, userLng, userLat, date]);

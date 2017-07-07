@@ -69,6 +69,33 @@ router.post('/:postId', async(req, res) => {
         //댓글달때 post 테이블의 댓글갯수칼럼 수 증가
         let query2 = 'update post set comment_cnt = comment_cnt + 1 where postId=?';
         await connection.query(query2, req.params.postId);
+
+        //알림 받을 사용자들의 토큰 가져오기
+        let query4 ='select user.deviceToken from cleanting.user'+
+        ' natural join cleanting.post'+
+        ' where post.postId = ?'
+        let result = await connection.query(query4, postId);
+
+        //알림 보내기
+        //알람부르기 & 메세지전송 & 저장
+        var message = {
+            to: result[0].deviceToken , // required fill with device token or topics
+            notification: {
+                title: 'Cleanting',
+                body: req.body.userName+'님이 작성하신 게시글에 댓글을 달았습니다.'
+            }
+        };
+        console.log(serverKey);
+        fcm.send(message)
+          .then(function(response){
+              console.log(message);
+              console.log("Successfully sent with response: ", response);
+          })
+          .catch(function(err){
+              console.log("Something has gone wrong!");
+              console.error(err);
+          });
+          
       res.status(200).send({
           "message" : "Succeed in writing a comment"
       });

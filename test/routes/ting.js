@@ -169,6 +169,7 @@ router.post('/area/:userId', async (req, res)=>{
     ' join ting join cleaner'+
     ' WHERE ting.tingId=map_info.tingId'+
     ' and ting.cleanerId=cleaner.cleanerId'+
+    ' and ting.cnt < 3'+
     ' and ting.tingId not in (select tingId from user_ting where userId=?)'+
     ' HAVING distance <= 30'+
     ' ORDER BY ting.cnt desc';

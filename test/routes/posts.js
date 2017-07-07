@@ -6,6 +6,9 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3();
 const moment = require('moment');
 // const jwt = require('jsonwebtoken');
+const FCM = require('fcm-push');
+var serverKey = require('../config/serverKey').serverKey;
+var fcm = new FCM(serverKey);
 
 //게시글 작성
 router.post('/', async(req, res) => {
@@ -72,10 +75,17 @@ router.post('/:postId', async(req, res) => {
 
         //알림 받을 사용자들의 토큰 가져오기
         let query4 ='select user.deviceToken from cleanting.user'+
-        ' natural join cleanting.post'+
-        ' where post.postId = ?'
-        let result = await connection.query(query4, postId);
-
+        ' join cleanting.post'+
+        ' where post.userId=user.userId'+
+        ' and post.postId = ?'
+        let result = await connection.query(query4, req.params.postId);
+        let ids=[];
+        console.log('result : ',result);
+        for(var i in result){
+          if(result[i]){
+            ids.push(result[i].deviceToken);
+          }
+        }
         //알림 보내기
         //알람부르기 & 메세지전송 & 저장
         var message = {
@@ -95,7 +105,7 @@ router.post('/:postId', async(req, res) => {
               console.log("Something has gone wrong!");
               console.error(err);
           });
-          
+
       res.status(200).send({
           "message" : "Succeed in writing a comment"
       });

@@ -1,3 +1,3 @@
 # CleanTing
 
-cleaner matching service for single household
+cleaner group buying service for single household

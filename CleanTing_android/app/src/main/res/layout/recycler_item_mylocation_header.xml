@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/my_request_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textview18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:text="나의 신청현황"
+            android:textSize="17dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="#333333" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/my_request_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp">
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textview28"
+            android:layout_width="0dp"
+            android:layout_weight="8.5"
+            android:layout_height="wrap_content"
+            android:text="내 지역 모집"
+            android:textSize="17dp"
+            android:layout_marginLeft="35dp"
+            android:textColor="#333333"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999999"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="7dp"/>
+    <LinearLayout
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="청소 일시"
+                android:id="@+id/textView4" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="150dp"
+                android:textColor="#333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모집인원"
+                android:layout_alignBaseline="@+id/textView4"
+                android:layout_alignBottom="@+id/textView4"
+                android:layout_marginEnd="36dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

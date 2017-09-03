@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#cccccc</item>
+        <item name="colorAccent">#333333</item>
+        <item name="colorControlNormal">#333333</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/silver</item>
+        <item name="colorControlActivated">@color/yellow</item>
+    </style>
+
+    <!--<style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">-->
+        <!--<item name="android:indeterminateOnly">false</item>-->
+        <!--<item name="android:progressDrawable">@drawable/custom_ratingbar</item>-->
+                <!--<item name="android:minHeight">200dp</item>-->
+                <!--<item name="android:maxHeight">200dp</item>-->
+        <!--<item name="android:thumb">@null</item>-->
+    <!--</style>-->
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

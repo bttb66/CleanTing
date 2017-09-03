@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "147378404953",
+    "firebase_url": "https://cleanting-cd861.firebaseio.com",
+    "project_id": "cleanting-cd861",
+    "storage_bucket": "cleanting-cd861.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147378404953:android:b18042da66b29dfa",
+        "android_client_info": {
+          "package_name": "sopt.client.cleanting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147378404953-najfvm841gr9vf22t618ouhl3j12g065.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByaItlMehh7c_HtUg_lhhqwp9Am6HOK2E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

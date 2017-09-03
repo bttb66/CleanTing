@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.client.cleanting.Main.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        />
+    <LinearLayout
+        android:id="@+id/main_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f2f2f2">
+        <ImageView
+            android:id="@+id/my_request_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:src="@drawable/home_icon_y"
+            android:padding="10dp"
+            />
+        <ImageView
+            android:id="@+id/make_ting_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:src="@drawable/community_icon_g"
+            android:padding="10dp"
+            />
+        <ImageView
+            android:id="@+id/alarm_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:src="@drawable/notice_icon_g"
+            android:padding="10dp"
+            />
+        <ImageView
+            android:id="@+id/mypage_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:src="@drawable/mypage_icon_g"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

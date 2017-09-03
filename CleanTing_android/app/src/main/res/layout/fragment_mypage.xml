@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="25sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="#5D5D5D"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="마이 페이지"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="35sp"
+                android:layout_marginTop="60dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4sp"
+                        android:layout_weight="0.7"
+                        android:text="버전 정보"
+                        android:textSize="15sp"
+                        android:textColor="#333333" />
+                    <TextView
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:gravity="right"
+                        android:paddingRight="15sp"
+                        android:text="v 1.0"
+                        android:textSize="15sp"
+                        android:textColor="#333333" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/changeinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginTop="22dp"
+                    android:text="회원 정보 수정"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/adminaccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginTop="22dp"
+                    android:text="결제 관리"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4sp"
+                        android:layout_weight="0.7"
+                        android:text="알림 설정"
+                        android:textSize="15sp"
+                        android:textColor="#333333" />
+                    <Switch
+                        android:id="@+id/alarm_switch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="0.3"
+                        android:switchMinWidth="40dp"
+                        android:checked="true"
+                        android:text=""
+                        android:textOff=""
+                        android:textOn=""
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:track="@drawable/switch_track_selector" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginTop="22dp"
+                    android:text="오픈소스 라이선스"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/myhistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginTop="22dp"
+                    android:text="나의 이용내역"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/leave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginTop="22dp"
+                    android:text="탈퇴 하기"
+                    android:textSize="15sp"
+                    android:textColor="#333333" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="35sp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:alpha="0.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.2dp"
+                    android:layout_centerInParent="true"
+                    android:background="#000000"/>
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="4sp"
+                    android:text="클리너 등록"
+                    android:textSize="15sp"
+                    android:textColor="#333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="#333333"
+                    android:layout_marginLeft="4sp"
+                    android:text="클리너 관리"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/Logout_btn"
+                    android:background="@drawable/logout"
+                    android:layout_width="232dp"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

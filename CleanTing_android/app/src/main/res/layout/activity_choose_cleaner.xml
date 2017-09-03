@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.client.cleanting.MakeTing.ChooseCleanerActivity">
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:background="@drawable/search_bulletin"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginLeft="35sp"
+        android:layout_marginRight="35sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <EditText
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:id="@+id/search_edit"
+            android:layout_weight="0.8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/C_search_img"
+            android:layout_gravity="center"
+            android:src="@drawable/search_button"
+            android:layout_weight="0.2"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/Search_Linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="20sp"
+            android:id="@+id/Search_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wrapLinear"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="17sp"
+                android:textColor="#333333"
+                android:layout_marginTop="23dp"
+                android:text="최근 이용 클리너"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginTop="10dp"
+                android:alpha="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerInParent="true"
+                android:background="#808080"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/Recent_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="35sp"
+            android:layout_marginRight="35sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/listtitle"
+                    android:textColor="#333333"
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="별점순 클리너" />
+
+                <ImageView
+                    android:layout_toLeftOf="@+id/small_address"
+                    android:id="@+id/addressImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="100sp"
+                    android:src="@drawable/location" />
+
+                <TextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/small_address"
+                    android:layout_toLeftOf="@+id/sort_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5sp"
+                    android:text="동동동" />
+
+                <Spinner
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/sort_background"
+                    android:id="@+id/sort_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_marginTop="5sp"
+                android:alpha="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerInParent="true"
+                android:background="#808080"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_marginTop="20sp"
+            android:id="@+id/Cleanerlist_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+</LinearLayout>

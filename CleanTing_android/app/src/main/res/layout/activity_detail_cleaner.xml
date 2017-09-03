@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.client.cleanting.MakeTing.CleanerDetail.DetailCleanerActivity">
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="#5D5D5D"
+        android:text="클리너 선택"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/Detail_cleaner_img"
+            android:layout_gravity="center"
+            android:src="@drawable/picture_no"
+            android:layout_width="108dp"
+            android:layout_height="108dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/D_star1"
+                    android:src="@drawable/star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <ImageView
+                    android:id="@+id/D_star2"
+                    android:src="@drawable/star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <ImageView
+                    android:id="@+id/D_star3"
+                    android:src="@drawable/star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <ImageView
+                    android:id="@+id/D_star4"
+                    android:src="@drawable/star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <ImageView
+                    android:id="@+id/D_star5"
+                    android:src="@drawable/star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <TextView
+                    android:id="@+id/rateNum"
+                    android:layout_marginLeft="10sp"
+                    android:textColor="#B3B3B3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/review_tv"
+                android:textColor="#333333"
+                android:layout_marginTop="11dp"
+                android:textSize="14dp"
+                android:text="리뷰 : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/career_tv"
+                android:textColor="#333333"
+                android:layout_marginTop="11dp"
+                android:textSize="14dp"
+                android:text="경력 : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/age_tv"
+                android:textColor="#333333"
+                android:layout_marginTop="11dp"
+                android:textSize="14dp"
+                android:text="나이 : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="45dp"
+        android:text="안성현 클리너"
+        android:textSize="15dp"
+        android:id="@+id/cleanername_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:text="리뷰"
+            android:textColor="#333333"
+            android:textSize="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="10sp"
+            android:alpha="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="1.2dp"
+            android:layout_centerInParent="true"
+            android:background="#000000"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/Review_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_weight="0.8"
+            android:layout_height="0sp">
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_weight="0.2"
+            android:layout_height="0sp">
+            <ImageView
+                android:id="@+id/Choose"
+                android:src="@drawable/select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

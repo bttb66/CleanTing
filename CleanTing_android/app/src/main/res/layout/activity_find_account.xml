@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.client.cleanting.Main.Login.FindAccountActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/et1"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="Find ID / Password"
+            android:textSize="20sp"
+            android:textColor="#5D5D5D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/et2"
+            android:textSize="15dp"
+            android:layout_marginTop="45dp"
+            android:textColor="@android:color/black"
+            android:text="Find ID"
+            android:layout_marginLeft="29dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:background="@null"
+                android:textSize="13dp"
+                android:id="@+id/edit_phonenumber"
+                android:hint="핸드폰 번호(-포함하여 입력해 주세요)"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/button_request_citenumber"
+                android:src="@drawable/confirm_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/et3"
+            android:layout_marginTop="45dp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="29dp"
+            android:textSize="15dp"
+            android:text="New Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:background="@null"
+                android:textSize="13dp"
+                android:id="@+id/new_edit_phonenumber"
+                android:hint="핸드폰 번호(-포함하여 입력해 주세요)"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/new_button_citenumber"
+                android:src="@drawable/check_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <EditText
+            android:background="@null"
+            android:textSize="13dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"
+            android:id="@+id/new_password"
+            android:hint="새 비밀번호를 입력하세요"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:textSize="13dp"
+            android:layout_gravity="center"
+            android:id="@+id/edit_confirm_password"
+            android:hint="새 비밀번호 확인"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginBottom="39dp"
+            android:layout_marginTop="66dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="130dp"
+            android:id="@+id/button_new_password"
+            android:src="@drawable/jesuljung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+</LinearLayout>

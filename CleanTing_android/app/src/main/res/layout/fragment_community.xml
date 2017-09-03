@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/btn_remove"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_marginTop="25dp"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/bulletin_name"
+                            android:layout_centerVertical="true"
+                            android:text="신림동 게시판"
+                            android:textSize="20dp"
+                            android:textColor="#5D5D5D"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:layout_marginRight="19dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:id="@+id/more_btn"
+                            android:src="@drawable/three_circle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="18sp"
+                        android:alpha="0.5"
+                        android:background="#000000" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/BulletinRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/morebutton"
+                    android:visibility="invisible"
+                    android:id="@+id/frameLinear"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/B_search"
+                        android:gravity="center"
+                        android:text="검색"
+                        android:textSize="18dp"
+                        android:layout_width="175dp"
+                        android:layout_height="50dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.2dp"
+                        android:layout_centerInParent="true"
+                        android:alpha="0.4"
+                        android:background="#808080" />
+                    <TextView
+                        android:id="@+id/B_filter"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:text="내 글 모아보기"
+                        android:layout_width="175dp"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginRight="19dp"
+            android:layout_marginBottom="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/write_icon"
+            android:id="@+id/floatimg"
+            android:layout_width="66dp"
+            android:layout_height="66dp" />
+    </RelativeLayout>
+
+</FrameLayout>

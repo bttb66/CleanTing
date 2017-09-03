@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.client.cleanting.Community.CommunityBulletinDetailActivity">
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:text="상세보기"
+            android:textSize="20sp"
+            android:textColor="#5D5D5D"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="18dp"
+            android:alpha="0.7"
+            android:background="#808080" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ReplyRecyclerview">
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/input_comment"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/inputReplyEdit"
+            android:paddingTop="12dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:paddingBottom="12dp"
+            android:paddingLeft="35dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:hint="댓글을 입력하세요"
+            android:layout_weight="0.85"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/sendimg"
+            android:src="@drawable/send"
+            android:layout_weight="0.15"
+            android:layout_width="0dp"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="25dp"-->
+            <!--android:gravity=""-->
+            <!--android:layout_gravity="center"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                <!--android:layout_gravity="center"-->
+                <!--android:text="상세보기"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="25sp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1.2dp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_marginTop="23sp"-->
+                <!--android:alpha="0.5"-->
+                <!--android:background="#000000" />-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_marginLeft="31dp"-->
+                <!--android:layout_marginRight="31dp"-->
+                <!--android:layout_marginTop="22dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:text="휴지 공동 구매 하실분"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:layout_weight="0.7"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content" />-->
+                <!--<TextView-->
+                    <!--android:text="2015.12.24 14:00"-->
+                    <!--android:textSize="11sp"-->
+                    <!--android:layout_weight="0.3"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content" />-->
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+                <!--android:text="BC마트에 휴지 30개 팔고\n 어쩌고 저쩌고 adlfjkasdflkjsadlfjksldfj\nsadlfkjasldkfj"-->
+                <!--android:layout_marginLeft="31dp"-->
+                <!--android:layout_marginRight="31dp"-->
+                <!--android:textSize="15sp"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="31dp"-->
+                <!--android:layout_marginTop="30dp">-->
+                <!--<ImageView-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:id="@+id/C_img"-->
+                    <!--android:layout_width="33dp"-->
+                    <!--android:layout_height="38dp"-->
+                    <!--android:src="@drawable/comment_icon" />-->
+                <!--<TextView-->
+                    <!--android:id="@+id/C_comment"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:textSize="17sp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_toRightOf="@+id/C_img"-->
+                    <!--android:text="댓글" />-->
+                <!--<TextView-->
+                    <!--android:text="25"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:textSize="17sp"-->
+                    <!--android:layout_toRightOf="@+id/C_comment"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+            <!--</RelativeLayout>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="5dp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_marginTop="23sp"-->
+                <!--android:alpha="0.15"-->
+                <!--android:background="#333333" />-->
+        <!--</LinearLayout>-->
+        <!--<LinearLayout-->
+            <!--android:background="@drawable/input_comment"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<EditText-->
+                <!--android:paddingTop="12dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="@null"-->
+                <!--android:paddingBottom="12dp"-->
+                <!--android:paddingLeft="35dp"-->
+                <!--android:textSize="17sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:hint="댓글을 입력하세요"-->
+                <!--android:layout_weight="0.85"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<ImageView-->
+                <!--android:id="@+id/sendimg"-->
+                <!--android:src="@drawable/send"-->
+                <!--android:layout_weight="0.15"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="50dp" />-->
+        <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+</RelativeLayout>

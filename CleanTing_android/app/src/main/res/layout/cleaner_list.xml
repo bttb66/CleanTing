@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+
+        <ImageView
+            android:id="@+id/List_cleanerimg"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/picture_no" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/List_cleanername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/List_cleanerimg"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/List_cleanerimg"
+            android:text="name"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/List_cleanerimg"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/List_cleanerhistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="청소 이력 : "
+                android:textColor="#333333"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_toRightOf="@+id/List_cleanerimg"
+            android:layout_alignBottom="@+id/List_cleanerimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/List_cleanercomment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="후기: "
+                android:layout_marginBottom="5dp"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+            <ImageView
+                android:layout_toLeftOf="@+id/List_clenaerstar2"
+                android:id="@+id/List_clenaerstar1"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="10sp"
+                android:src="@drawable/star" />
+            <ImageView
+                android:layout_toLeftOf="@+id/List_clenaerstar3"
+                android:id="@+id/List_clenaerstar2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/star" />
+            <ImageView
+                android:layout_toLeftOf="@+id/List_clenaerstar4"
+                android:id="@+id/List_clenaerstar3"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/star" />
+            <ImageView
+                android:layout_toLeftOf="@+id/List_clenaerstar5"
+                android:id="@+id/List_clenaerstar4"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/star" />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:id="@+id/List_clenaerstar5"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="27dp"
+                android:src="@drawable/star" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="15sp"
+        android:alpha="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="1.2dp"
+        android:layout_centerInParent="true"
+        android:background="#000000"/>
+
+</LinearLayout>

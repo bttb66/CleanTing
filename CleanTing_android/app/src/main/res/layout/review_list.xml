@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:text="안성"
+            android:id="@+id/writername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/writedate"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/writername"
+            android:text="2017-05-05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/star_img1"
+            android:layout_toLeftOf="@+id/star_img2"
+            android:src="@drawable/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/star_img2"
+            android:layout_toLeftOf="@+id/star_img3"
+            android:src="@drawable/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/star_img3"
+            android:layout_toLeftOf="@+id/star_img4"
+            android:src="@drawable/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/star_img4"
+            android:layout_toLeftOf="@+id/star_img5"
+            android:src="@drawable/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:id="@+id/star_img5"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="정말 좋네요"
+            android:id="@+id/writecomment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="11dp"
+        android:alpha="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="1.2dp"
+        android:layout_centerInParent="true"
+        android:background="#000000"/>
+
+</LinearLayout>

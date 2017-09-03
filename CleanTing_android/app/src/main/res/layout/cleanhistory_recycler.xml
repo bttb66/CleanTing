@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="sopt.client.cleanting.Mypage.MyhistoryActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/H_cleanername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:text="클리너 이름"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/rate_btn"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/evaluation" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:layout_marginTop="23dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/H_cleandate"
+            android:text="청소일시"
+            android:textSize="17sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/H_cleantime"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:text="청소 시간"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="#AEA5A5" />
+
+</LinearLayout>
